@@ -15,7 +15,7 @@ const items = galleryItems.map(item => {
     const galleryImg = document.createElement('img');
     galleryImg.classList.add('gallery__image');
     galleryImg.src = item.preview;
-    galleryImg.setAttribute('data-sourse', item.original);
+    galleryImg.setAttribute('data-source', item.original);
     galleryImg.alt = item.description;
     
     galleryItem.append(galleryLink);
@@ -35,7 +35,7 @@ document.addEventListener('click', (event) => {
         return;
     }
 
-    const imgSelected = event.target.getAttribute('data-sourse');
+    const imgSelected = event.target.getAttribute('data-source');
     const instance = basicLightbox.create(
         `<img src="${imgSelected}" width="800" height="600">`,
         {
