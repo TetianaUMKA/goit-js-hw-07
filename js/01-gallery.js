@@ -31,26 +31,8 @@ console.log(galleryItems);
 document.addEventListener('click', (event) => {
     event.preventDefault();
 
-    if (event.target.nodeName !== 'IMG') {
+    if (event.target.classList.value !== 'gallery__image') {
         return;
     }
-    
-    const lightbox = basicLightbox.create(
-        `<img src="${event.target.getAttribute('data-source')}" width="800" height="600">`,
-        {
-            onShow: () => {
-                document.addEventListener('keydown', closeModal);
-            },
-            onClose: () => {
-                document.removeEventListener('keydown', closeModal);
-            },
-        }
-    );
-    lightbox.show();
-
-    function closeModal(event) {
-        if (event.key === 'Escape') {
-            instance.close();
-        }
-    }
+    basicLightbox.create(`<img src="${event.target.dataset.source}" width="800" height="600">`).show();
 });
