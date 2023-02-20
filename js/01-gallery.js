@@ -1,7 +1,7 @@
 // Створити галерею з можливістю кліку по її елементах і перегляду повнорозмірного зображення у модальному вікні.
 
 import { galleryItems } from './gallery-items.js';
-// Change code below this line
+
 const galleryContainerEl = document.querySelector('.gallery');
 
 const items = galleryItems.map(item => {
@@ -15,7 +15,7 @@ const items = galleryItems.map(item => {
     const galleryImg = document.createElement('img');
     galleryImg.classList.add('gallery__image');
     galleryImg.src = item.preview;
-    galleryImg.setAttribute('data-source', item.original);
+    galleryImg.setAttribute('data-sourse', item.original);
     galleryImg.alt = item.description;
     
     galleryItem.append(galleryLink);
@@ -26,5 +26,32 @@ const items = galleryItems.map(item => {
 galleryContainerEl.append(...items);
 
 console.log(galleryContainerEl);
-
 console.log(galleryItems);
+
+document.addEventListener('click', (event) => {
+    event.preventDefault();
+
+    if (event.target.nodeName !== 'IMG') {
+        return;
+    }
+
+    const imgSelected = event.target.getAttribute('data-sourse');
+    const instance = basicLightbox.create(
+        `<img src="${imgSelected}" width="800" height="600">`,
+        {
+            onShow: () => {
+                document.addEventListener('keydown', closeModal);
+            },
+            onClose: () => {
+                document.removeEventListener('keydown', closeModal);
+            },
+        }
+    );
+    instance.show();
+
+    function closeModal(event) {
+        if (event.key === 'Escape') {
+            instance.close();
+        }
+    }
+});
