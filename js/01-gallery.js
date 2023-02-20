@@ -34,10 +34,9 @@ document.addEventListener('click', (event) => {
     if (event.target.nodeName !== 'IMG') {
         return;
     }
-
-    const imgSelected = event.target.getAttribute('data-source');
-    const instance = basicLightbox.create(
-        `<img src="${imgSelected}" width="800" height="600">`,
+    
+    const lightbox = basicLightbox.create(
+        `<img src="${event.target.getAttribute('data-source')}" width="800" height="600">`,
         {
             onShow: () => {
                 document.addEventListener('keydown', closeModal);
@@ -47,7 +46,7 @@ document.addEventListener('click', (event) => {
             },
         }
     );
-    instance.show();
+    lightbox.show();
 
     function closeModal(event) {
         if (event.key === 'Escape') {
